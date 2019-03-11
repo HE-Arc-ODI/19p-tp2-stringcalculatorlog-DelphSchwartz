@@ -5,6 +5,17 @@ import org.apache.logging.log4j.LogManager;
 
 public class StringCalculator {
 
+    private static final Logger logger = Logger.getLogger(StringCalculator.class);
+
+    public static void main(String[] args) {
+        logger.debug("message de débogage");
+        logger.info("Un délimiteur personnalisé est détecté");
+        logger.warn("Un chiffre plus grand que 1'000 est utilisé");
+        logger.error("message d'erreur");
+        logger.fatal("Exception des nombres négatifs est survenue !");
+    }
+    }
+
     public StringCalculator() {
     }
     
