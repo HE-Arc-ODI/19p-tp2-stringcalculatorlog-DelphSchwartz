@@ -1,17 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="WARN">
+<Configuration status="INFO">
     <Appenders>
+
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="{%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n}{FATAL=red, ERROR=red, WARN=yellow, INFO=black}"/>
+            <ThresholdFilter level="warn"  onMatch="DENY" onMismatch="NEUTRAL"/>
+            <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
+            <ThresholdFilter level="fatal" onMatch="DENY" onMismatch="NEUTRAL"/>
+            <ThresholdFilter level="info"  onMatch="ACCEPT" onMismatch="DENY"/>
         </Console>
 
-        <File name="log" fileName="logs/app.log">
+        <File name="warning" fileName="logs/warningLog.log">
             <PatternLayout pattern="%d{yyyy-mm-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
+            <ThresholdFilter level="fatal" onMatch="DENY" onMismatch="NEUTRAL"/>
+            <ThresholdFilter level="warn"  onMatch="ACCEPT" onMismatch="DENY"/>
+        </File>
+
+        <File name="fatal" fileName="logs/fatalLog.log">
+            <PatternLayout pattern="%d{yyyy-mm-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
+            <ThresholdFilter level="fatal" onMatch="ACCEPT" onMismatch="DENY"/>
+            <ThresholdFilter level="warn"  onMatch="DENY" onMismatch="NEUTRAL"/>
         </File>
     </Appenders>
     <Loggers>
-        <Root level="trace">
-            <AppenderRef ref="log"/>
+        <Root level="info" additivity="false">
+            <AppenderRef ref="Console" level="info"/>
+            <AppenderRef ref="warning" level="warn"/>
+            <AppenderRef ref="fatal" level="fatal"/>
         </Root>
     </Loggers>
 </Configuration>
