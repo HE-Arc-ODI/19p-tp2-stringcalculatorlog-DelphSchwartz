@@ -27,6 +27,7 @@ public class StringCalculator {
         //if it begins by '//' then it's a personalize delimiter(s)
         if (numbers.startsWith("//")) {
             delimiter = this.extractDelimiter(numbers);
+            logger.info("Un délimiteur personnalisé est détecté :" );
             //"cut" the beginning of the string so that the personalize delimiter is removed
             numbersUpdated = numbers.substring(numbers.indexOf("\n") + 1);
         }
@@ -45,8 +46,10 @@ public class StringCalculator {
             if (!(number.trim().length() == 0)) {
                 Integer numberInt = Integer.parseInt(number);
                 if (numberInt < 0)
+                    logger.fatal("Exception des nombres négatifs est survenue !");
                     negativeNumbers.add(numberInt);
                 else if (numberInt <= 1000)
+                    logger.warn("Un chiffre plus grand que 1'000 est utilisé");
                     returnValue += numberInt;
             }
         }
