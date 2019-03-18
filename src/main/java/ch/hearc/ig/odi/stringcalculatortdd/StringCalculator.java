@@ -1,20 +1,16 @@
 package ch.hearc.ig.odi.stringcalculatortdd;
 
-import org.apache.logging.log4j.Logger;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class StringCalculator {
 
-    private static final Logger logger = Logger.getLogger(StringCalculator.class);
+    private static final Logger LOGGER = LogManager.getLogger(StringCalculator.class);
 
-    public static void main(String[] args) {
-        logger.debug("message de débogage");
-        logger.info("Un délimiteur personnalisé est détecté");
-        logger.warn("Un chiffre plus grand que 1'000 est utilisé");
-        logger.error("message d'erreur");
-        logger.fatal("Exception des nombres négatifs est survenue !");
-    }
-    }
 
     public StringCalculator() {
     }
@@ -27,7 +23,7 @@ public class StringCalculator {
         //if it begins by '//' then it's a personalize delimiter(s)
         if (numbers.startsWith("//")) {
             delimiter = this.extractDelimiter(numbers);
-            logger.info("Un délimiteur personnalisé est détecté :" );
+            LOGGER.info("Un délimiteur personnalisé est détecté :" );
             //"cut" the beginning of the string so that the personalize delimiter is removed
             numbersUpdated = numbers.substring(numbers.indexOf("\n") + 1);
         }
@@ -45,11 +41,12 @@ public class StringCalculator {
             //test if the numbers array is not empty
             if (!(number.trim().length() == 0)) {
                 Integer numberInt = Integer.parseInt(number);
-                if (numberInt < 0)
-                    logger.fatal("Exception des nombres négatifs est survenue !");
+                if (numberInt < 0) {
+                    LOGGER.fatal("Exception des nombres négatifs est survenue !");
                     negativeNumbers.add(numberInt);
+                }
                 else if (numberInt <= 1000)
-                    logger.warn("Un chiffre plus grand que 1'000 est utilisé");
+                    LOGGER.warn("Un chiffre plus grand que 1'000 est utilisé");
                     returnValue += numberInt;
             }
         }
